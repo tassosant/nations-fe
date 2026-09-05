@@ -18,6 +18,7 @@ export class CountriesPageComponent implements OnInit{
   ngOnInit(): void {
     this.countriesService.getCountries().subscribe((response) => {
       this.countries = response.countries;
+      console.log("countries:", this.countries);
     });
   }
 }
