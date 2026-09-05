@@ -1,50 +1,71 @@
-<form class="filters" (ngSubmit)="searchStatistics()">
-  <div class="filter-item">
-    <label for="region">Region</label>
-    <select id="region" name="region" multiple [(ngModel)]="selectedRegionIds">
-      @for (region of regions; track region.id){
-        <option [ngValue]="region.id">
-          {{region.name}}
-        </option>
-      }
-    </select>
-  </div>
-  <div class="filter-item">
-    <label for="yearFrom">Year From</label>
-    <input type="number" id="yearFrom" name="yearFrom" placeholder="Year From" [(ngModel)]="yearFrom">
-  </div>
-  <div class="filter-item">
-    <label for="yearTo">Year To</label>
-    <input type="number" id="yearTo" name="yearTo" placeholder="Year To" [(ngModel)]="yearTo">
-  </div>
-  <button type="submit">
-    Search
-  </button>
-  <button type="button" (click)="clearFilters()">
-    Clear
-  </button>
-</form>
-<table>
-  <thead>
-    <tr>
-      <th>Continent Name</th>
-      <th>Region Name</th>
-      <th>Country Name</th>
-      <th>Year</th>
-      <th>Population</th>
-      <th>Gdp</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (statisticEl of statistics; track statisticEl.id){
+<section aria-labelledby="statistics-title">
+  <header>
+    <h1 id="statistics-title">Statistics</h1>
+  </header>
+
+  <form class="filters" (ngSubmit)="searchStatistics()">
+    <fieldset>
+      <legend>Filters</legend>
+
+      <div class="filter-item">
+        <label for="region">Region</label>
+        <select id="region" name="region" multiple [(ngModel)]="selectedRegionIds">
+          @for (region of regions; track region.id) {
+            <option [ngValue]="region.id">
+              {{ region.name }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-item">
+        <label for="yearFrom">Year From</label>
+        <input
+          id="yearFrom"
+          name="yearFrom"
+          type="number"
+          placeholder="Year From"
+          [(ngModel)]="yearFrom"
+        />
+      </div>
+
+      <div class="filter-item">
+        <label for="yearTo">Year To</label>
+        <input id="yearTo" name="yearTo" type="number" placeholder="Year To" [(ngModel)]="yearTo" />
+      </div>
+
+      <div class="filter-actions">
+        <button type="submit">Search</button>
+        <button type="button" (click)="clearFilters()">Clear</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <table>
+    <caption>
+      Statistics by country and year
+    </caption>
+    <thead>
       <tr>
-        <td>{{statisticEl.continent_name}}</td>
-        <td>{{statisticEl.region_name}}</td>
-        <td>{{statisticEl.country_name}}</td>
-        <td>{{statisticEl.year}}</td>
-        <td>{{statisticEl.population}}</td>
-        <td>{{statisticEl.gdp}}</td>
+        <th scope="col">Continent Name</th>
+        <th scope="col">Region Name</th>
+        <th scope="col">Country Name</th>
+        <th scope="col">Year</th>
+        <th scope="col">Population</th>
+        <th scope="col">GDP</th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for (statisticEl of statistics; track statisticEl.id) {
+        <tr>
+          <td>{{ statisticEl.continent_name }}</td>
+          <td>{{ statisticEl.region_name }}</td>
+          <th scope="row">{{ statisticEl.country_name }}</th>
+          <td>{{ statisticEl.year }}</td>
+          <td>{{ statisticEl.population }}</td>
+          <td>{{ statisticEl.gdp }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

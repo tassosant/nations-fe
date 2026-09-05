@@ -1,22 +1,31 @@
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Country Code</th>
-      <th>Year</th>
-      <th>Population</th>
-      <th>GDP</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (gdp of gdpPerformances; track gdp.country_id){
+<section aria-labelledby="gdp-performance-title">
+  <header>
+    <h1 id="gdp-performance-title">GDP Performance</h1>
+  </header>
+
+  <table>
+    <caption>
+      GDP performance by country
+    </caption>
+    <thead>
       <tr>
-        <td>{{gdp.name}}</td>
-        <td>{{gdp.country_code3}}</td>
-        <td>{{gdp.year}}</td>
-        <td>{{gdp.population}}</td>
-        <td>{{gdp.gdp}}</td>
+        <th scope="col">Name</th>
+        <th scope="col">Country Code</th>
+        <th scope="col">Year</th>
+        <th scope="col">Population</th>
+        <th scope="col">GDP</th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @for (gdp of gdpPerformances; track gdp.country_id) {
+        <tr>
+          <th scope="row">{{ gdp.name }}</th>
+          <td>{{ gdp.country_code3 }}</td>
+          <td>{{ gdp.year }}</td>
+          <td>{{ gdp.population }}</td>
+          <td>{{ gdp.gdp }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

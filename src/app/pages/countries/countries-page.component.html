@@ -1,9 +1,27 @@
-<ol>
-  @for (country of countries; track country.id){
-    <li>
-      <a>{{country.name}</a>
-      <span>{{country.area}}</span>
-      <span>{{country.country_code2}}</span>
-    </li>
-  }
-</ol>
+<section aria-labelledby="countries-title">
+  <header>
+    <h1 id="countries-title">Countries</h1>
+  </header>
+
+  <table>
+    <caption>
+      Country details
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Area</th>
+        <th scope="col">Country Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (country of countries; track country.id) {
+        <tr>
+          <th scope="row">{{ country.name }}</th>
+          <td>{{ country.area }}</td>
+          <td>{{ country.country_code2 }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>
