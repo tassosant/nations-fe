@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Statistics} from '../../models/Statistics';
 import {Region} from '../../models/Region';
 import {FormsModule} from '@angular/forms';
+import {StatisticsService} from '../../services/statistics.service';
 
 @Component({
   imports: [
@@ -17,7 +18,16 @@ export class StatisticsPageComponent implements OnInit{
   statistics: Statistics[] = [];
   selectedRegionIds: number[]=[];
 
-  ngOnInit(): void {
+  constructor(private readonly statisticsService: StatisticsService) {
+  }
 
+  ngOnInit(): void {
+    this.statisticsService.getRegions().subscribe((response) => {
+      this.regions = response.regions;
+    });
+
+    this.statisticsService.getStatistics().subscribe((response) => {
+      this.statistics = response.statistics;
+    });
   }
 }

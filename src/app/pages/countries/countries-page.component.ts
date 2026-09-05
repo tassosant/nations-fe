@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Country} from '../../models/Country';
+import {CountriesService} from '../../services/countries.service';
 
 @Component({
   imports: [],
@@ -11,9 +12,12 @@ export class CountriesPageComponent implements OnInit{
 
   countries: Country[] = [];
 
-  ngOnInit(): void {
-
+  constructor(private readonly countriesService: CountriesService) {
   }
 
-
+  ngOnInit(): void {
+    this.countriesService.getCountries().subscribe((response) => {
+      this.countries = response.countries;
+    });
+  }
 }
