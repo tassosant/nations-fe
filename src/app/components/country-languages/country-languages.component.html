@@ -1,1 +1,14 @@
-<p>languages works!</p>
+<header>
+  <h1 id="country-languages-title">{{ country_name() || 'Languages' }}</h1>
+</header>
+
+
+<ul>
+  @if (languages()) {
+    @for (language of languages(); track language) {
+      <li>{{ language }}</li>
+    }
+  }@else{
+    <p>No languages found</p>
+  }
+</ul>

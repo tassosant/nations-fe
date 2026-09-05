@@ -12,14 +12,20 @@
         <th scope="col">Name</th>
         <th scope="col">Area</th>
         <th scope="col">Country Code</th>
+        <th scope="col">Languages</th>
       </tr>
     </thead>
     <tbody>
       @for (country of countries(); track country.id) {
         <tr>
-          <th scope="row">{{ country.name }}</th>
+          <th scope="row">
+            <a [routerLink]="['/countries', country.id, 'languages']">{{ country.name }}</a>
+          </th>
           <td>{{ country.area }}</td>
           <td>{{ country.country_code2 }}</td>
+          <td>
+            <app-languages [country_id]="country.id"></app-languages>
+          </td>
         </tr>
       }
     </tbody>

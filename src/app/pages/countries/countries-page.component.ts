@@ -1,9 +1,12 @@
 import {Component, OnInit, signal} from '@angular/core';
+import {RouterLink} from '@angular/router';
 import {Country} from '../../models/Country';
 import {CountriesService} from '../../services/countries.service';
 
 @Component({
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   selector: 'app-countries',
   styleUrl: './countries-page.component.css',
   templateUrl: './countries-page.component.html',
