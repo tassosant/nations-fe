@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegionsResponse } from '../models/RegionsResponse';
+import { StatisticsRequest } from '../models/StatisticsRequest';
 import { StatisticsResponse } from '../models/StatisticsResponse';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class StatisticsService {
     return this.http.get<RegionsResponse>(this.regionsUrl);
   }
 
-  getStatistics(): Observable<StatisticsResponse> {
-    return this.http.get<StatisticsResponse>(this.statisticsUrl);
+  getStatistics(request: StatisticsRequest = {}): Observable<StatisticsResponse> {
+    return this.http.post<StatisticsResponse>(this.statisticsUrl, request);
   }
 }

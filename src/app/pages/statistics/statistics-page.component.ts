@@ -3,6 +3,7 @@ import {Statistics} from '../../models/Statistics';
 import {Region} from '../../models/Region';
 import {FormsModule} from '@angular/forms';
 import {StatisticsService} from '../../services/statistics.service';
+import {StatisticsRequest} from '../../models/StatisticsRequest';
 
 @Component({
   imports: [
@@ -17,6 +18,8 @@ export class StatisticsPageComponent implements OnInit{
   regions:Region[] = [];
   statistics: Statistics[] = [];
   selectedRegionIds: number[]=[];
+  yearFrom!: number | null;
+  yearTo!: number | null;
 
   constructor(private readonly statisticsService: StatisticsService) {
   }
@@ -26,8 +29,27 @@ export class StatisticsPageComponent implements OnInit{
       this.regions = response.regions;
     });
 
-    this.statisticsService.getStatistics().subscribe((response) => {
+    this.searchStatistics();
+  }
+
+  searchStatistics(): void {
+    this.statisticsService.getStatistics(this.createRequest()).subscribe((response) => {
       this.statistics = response.statistics;
     });
+  }
+
+  clearFilters(): void {
+    this.selectedRegionIds = [];
+    this.yearFrom = null;
+    this.yearTo = null;
+    this.searchStatistics();
+  }
+
+  private createRequest(): StatisticsRequest {
+    return {
+      regionIds: this.selectedRegionIds,
+      yearFrom: this.yearFrom,
+      yearTo: this.yearTo,
+    };
   }
 }

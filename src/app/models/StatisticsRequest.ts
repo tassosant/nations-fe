@@ -1,5 +1,5 @@
 export interface StatisticsRequest {
-  regionIds:number[];
-  yearFrom:number;
-  yearTo:number;
+  regionIds?:number[];
+  yearFrom?:number | null;
+  yearTo?:number | null;
 }
