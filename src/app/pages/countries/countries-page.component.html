@@ -15,12 +15,14 @@
       </tr>
     </thead>
     <tbody>
-      @for (country of countries; track country.id) {
-        <tr>
-          <th scope="row">{{ country.name }}</th>
-          <td>{{ country.area }}</td>
-          <td>{{ country.country_code2 }}</td>
-        </tr>
+      @if (countries) {
+        @for (country of countries; track country.id) {
+          <tr>
+            <th scope="row">{{ country.name }}</th>
+            <td>{{ country.area }}</td>
+            <td>{{ country.country_code2 }}</td>
+          </tr>
+        }
       }
     </tbody>
   </table>

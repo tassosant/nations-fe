@@ -46,25 +46,27 @@
       Statistics by country and year
     </caption>
     <thead>
-      <tr>
-        <th scope="col">Continent Name</th>
-        <th scope="col">Region Name</th>
-        <th scope="col">Country Name</th>
-        <th scope="col">Year</th>
-        <th scope="col">Population</th>
-        <th scope="col">GDP</th>
-      </tr>
+    <tr>
+      <th scope="col">Continent Name</th>
+      <th scope="col">Region Name</th>
+      <th scope="col">Country Name</th>
+      <th scope="col">Year</th>
+      <th scope="col">Population</th>
+      <th scope="col">GDP</th>
+    </tr>
     </thead>
     <tbody>
-      @for (statisticEl of statistics; track statisticEl.id) {
-        <tr>
-          <td>{{ statisticEl.continent_name }}</td>
-          <td>{{ statisticEl.region_name }}</td>
-          <th scope="row">{{ statisticEl.country_name }}</th>
-          <td>{{ statisticEl.year }}</td>
-          <td>{{ statisticEl.population }}</td>
-          <td>{{ statisticEl.gdp }}</td>
-        </tr>
+      @if (statistics) {
+        @for (statisticEl of statistics; track statisticEl.id) {
+          <tr>
+            <td>{{ statisticEl.continent_name }}</td>
+            <td>{{ statisticEl.region_name }}</td>
+            <th scope="row">{{ statisticEl.country_name }}</th>
+            <td>{{ statisticEl.year }}</td>
+            <td>{{ statisticEl.population }}</td>
+            <td>{{ statisticEl.gdp }}</td>
+          </tr>
+        }
       }
     </tbody>
   </table>

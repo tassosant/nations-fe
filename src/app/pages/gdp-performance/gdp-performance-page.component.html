@@ -17,14 +17,16 @@
       </tr>
     </thead>
     <tbody>
-      @for (gdp of gdpPerformances; track gdp.country_id) {
-        <tr>
-          <th scope="row">{{ gdp.name }}</th>
-          <td>{{ gdp.country_code3 }}</td>
-          <td>{{ gdp.year }}</td>
-          <td>{{ gdp.population }}</td>
-          <td>{{ gdp.gdp }}</td>
-        </tr>
+      @if (gdpPerformances) {
+        @for (gdp of gdpPerformances; track gdp.country_id) {
+          <tr>
+            <th scope="row">{{ gdp.name }}</th>
+            <td>{{ gdp.country_code3 }}</td>
+            <td>{{ gdp.year }}</td>
+            <td>{{ gdp.population }}</td>
+            <td>{{ gdp.gdp }}</td>
+          </tr>
+        }
       }
     </tbody>
   </table>
