@@ -8,7 +8,7 @@ import { GdpDataResponse } from '../models/GdpDataResponse';
 })
 export class GdpDataService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = '/gdp-data';
+  private readonly apiUrl = '/api/gdp-data';
 
   getGdpData(): Observable<GdpDataResponse> {
     return this.http.get<GdpDataResponse>(this.apiUrl);

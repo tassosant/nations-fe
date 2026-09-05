@@ -8,7 +8,7 @@ import { CountriesResponse } from '../models/CountriesResponse';
 })
 export class CountriesService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = '/countries';
+  private readonly apiUrl = '/api/countries';
 
   getCountries(): Observable<CountriesResponse> {
     return this.http.get<CountriesResponse>(this.apiUrl);
