@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import {App} from './app';
-import {Countries} from './pages/countries/countries';
-import {GdpPerformance} from './pages/gdp-performance/gdp-performance';
-import {Statistics} from './pages/statistics/statistics';
+import {CountriesPageComponent} from './pages/countries/countries-page.component';
+import {GdpPerformancePageComponent} from './pages/gdp-performance/gdp-performance-page.component';
+import {StatisticsPageComponent} from './pages/statistics/statistics-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path:'/home', component: App},
-  { path:'/countries', component: Countries},
-  { path:'/gdp-performance', component: GdpPerformance},
-  { path:'/statistics', component: Statistics},
+  { path:'/countries', component: CountriesPageComponent},
+  { path:'/gdp-performance', component: GdpPerformancePageComponent},
+  { path:'/statistics', component: StatisticsPageComponent},
 ];

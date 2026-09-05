@@ -1,0 +1,22 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Country Code</th>
+      <th>Year</th>
+      <th>Population</th>
+      <th>GDP</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (gdp of gdpPerformances; track gdp.country_id){
+      <tr>
+        <td>{{gdp.name}}</td>
+        <td>{{gdp.country_code3}}</td>
+        <td>{{gdp.year}}</td>
+        <td>{{gdp.population}}</td>
+        <td>{{gdp.gdp}}</td>
+      </tr>
+    }
+  </tbody>
+</table>
