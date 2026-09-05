@@ -10,8 +10,8 @@ import { StatisticsResponse } from '../models/StatisticsResponse';
 })
 export class StatisticsService {
   private readonly http = inject(HttpClient);
-  private readonly regionsUrl = '/api/regions';
-  private readonly statisticsUrl = '/api/statistics';
+  private readonly regionsUrl = '/regions';
+  private readonly statisticsUrl = '/statistics';
 
   getRegions(): Observable<RegionsResponse> {
     return this.http.get<RegionsResponse>(this.regionsUrl);

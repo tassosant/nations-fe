@@ -60,14 +60,17 @@
             },
             "development": {
               "buildTarget": "frontend:build:development",
+              "port": 4200,
               "proxyConfig": "proxy.backend.conf.json"
             },
             "backend": {
               "buildTarget": "frontend:build:development",
+              "port": 4200,
               "proxyConfig": "proxy.backend.conf.json"
             },
             "mock": {
               "buildTarget": "frontend:build:development",
+              "port": 4201,
               "proxyConfig": "proxy.mock.conf.json"
             }
           },
