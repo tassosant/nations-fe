@@ -10,7 +10,7 @@
       <div class="filter-item">
         <label for="region">Region</label>
         <select id="region" name="region" multiple [(ngModel)]="selectedRegionIds">
-          @for (region of regions; track region.id) {
+          @for (region of regions(); track region.id) {
             <option [ngValue]="region.id">
               {{ region.name }}
             </option>
@@ -56,17 +56,15 @@
     </tr>
     </thead>
     <tbody>
-      @if (statistics) {
-        @for (statisticEl of statistics; track statisticEl.id) {
-          <tr>
-            <td>{{ statisticEl.continent_name }}</td>
-            <td>{{ statisticEl.region_name }}</td>
-            <th scope="row">{{ statisticEl.country_name }}</th>
-            <td>{{ statisticEl.year }}</td>
-            <td>{{ statisticEl.population }}</td>
-            <td>{{ statisticEl.gdp }}</td>
-          </tr>
-        }
+      @for (statisticEl of statistics(); track statisticEl.id) {
+        <tr>
+          <td>{{ statisticEl.continent_name }}</td>
+          <td>{{ statisticEl.region_name }}</td>
+          <th scope="row">{{ statisticEl.country_name }}</th>
+          <td>{{ statisticEl.year }}</td>
+          <td>{{ statisticEl.population }}</td>
+          <td>{{ statisticEl.gdp }}</td>
+        </tr>
       }
     </tbody>
   </table>

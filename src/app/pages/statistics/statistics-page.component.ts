@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {Statistics} from '../../models/Statistics';
 import {Region} from '../../models/Region';
 import {FormsModule} from '@angular/forms';
@@ -13,11 +13,11 @@ import {StatisticsRequest} from '../../models/StatisticsRequest';
   styleUrl: './statistics-page.component.css',
   templateUrl: './statistics-page.component.html',
 })
-export class StatisticsPageComponent implements OnInit{
+export class StatisticsPageComponent implements OnInit {
 
-  regions:Region[] = [];
-  statistics: Statistics[] = [];
-  selectedRegionIds: number[]=[];
+  regions = signal<Region[]>([]);
+  statistics = signal<Statistics[]>([]);
+  selectedRegionIds: number[] = [];
   yearFrom!: number | null;
   yearTo!: number | null;
 
@@ -25,16 +25,26 @@ export class StatisticsPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.statisticsService.getRegions().subscribe((response) => {
-      this.regions = response.regions;
+    this.statisticsService.getRegions().subscribe({
+      next: (response) => {
+        this.regions.set(response.regions);
+      },
+      error: (error) => {
+        console.error('Failed to load regions', error);
+      }
     });
 
     this.searchStatistics();
   }
 
   searchStatistics(): void {
-    this.statisticsService.getStatistics(this.createRequest()).subscribe((response) => {
-      this.statistics = response.statistics;
+    this.statisticsService.getStatistics(this.createRequest()).subscribe({
+      next: (response) => {
+        this.statistics.set(response.statistics);
+      },
+      error: (error) => {
+        console.error('Failed to load statistics', error);
+      }
     });
   }
 
