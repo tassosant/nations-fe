@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CountryLanguages } from './country-languages';
+import { CountryLanguagesComponent } from './country-languages.component';
 
 describe('CountryLanguages', () => {
-  let component: CountryLanguages;
-  let fixture: ComponentFixture<CountryLanguages>;
+  let component: CountryLanguagesComponent;
+  let fixture: ComponentFixture<CountryLanguagesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CountryLanguages],
+      imports: [CountryLanguagesComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CountryLanguages);
+    fixture = TestBed.createComponent(CountryLanguagesComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

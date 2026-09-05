@@ -1,3 +1,24 @@
+<form class="filters">
+  <div class="filter-item">
+    <label for="continent">Region</label>
+    <select id="region" name="region" multiple [(ngModel)]="selectedRegionIds">
+      <option value="all">All</option>
+      @for (region of regions; track region.id){
+        <option [ngValue]="region.id">
+          {{region.name}}
+        </option>
+      }
+    </select>
+  </div>
+  <div class="filter-item">
+    <label for="YearFrom">Year From</label>
+    <input type="number" id="yearFrom" name="yearFrom" placeholder="Year From">
+  </div>
+  <div class="filter-item">
+    <label for="YearFrom">Year To</label>
+    <input type="number" id="yearTo" name="yearTo" placeholder="Year To">
+  </div>
+</form>
 <table>
   <thead>
     <tr>
@@ -10,8 +31,15 @@
     </tr>
   </thead>
   <tbody>
-    @for (statistic of statistics; track statistic.country_id){
-      
+    @for (statisticEl of statistics; track statisticEl.id){
+      <tr>
+        <td>{{statisticEl.continent_name}}</td>
+        <td>{{statisticEl.region_name}}</td>
+        <td>{{statisticEl.country_name}}</td>
+        <td>{{statisticEl.year}}</td>
+        <td>{{statisticEl.population}}</td>
+        <td>{{statisticEl.gdp}}</td>
+      </tr>
     }
   </tbody>
 </table>
