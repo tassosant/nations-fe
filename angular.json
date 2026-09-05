@@ -59,7 +59,16 @@
               "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "frontend:build:development",
+              "proxyConfig": "proxy.backend.conf.json"
+            },
+            "backend": {
+              "buildTarget": "frontend:build:development",
+              "proxyConfig": "proxy.backend.conf.json"
+            },
+            "mock": {
+              "buildTarget": "frontend:build:development",
+              "proxyConfig": "proxy.mock.conf.json"
             }
           },
           "defaultConfiguration": "development"
