@@ -1,6 +1,6 @@
 import {Component, inject, Input, OnChanges, OnInit, SimpleChanges, signal} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {CountryLanguagesService} from '../../services/country-languages.service';
+import {CountriesService} from '../../services/countries.service';
 
 @Component({
   imports: [],
@@ -9,7 +9,7 @@ import {CountryLanguagesService} from '../../services/country-languages.service'
   templateUrl: './country-languages.component.html',
 })
 export class CountryLanguagesComponent implements OnInit, OnChanges {
-  private readonly countryLanguagesService = inject(CountryLanguagesService);
+  private readonly countriesService = inject(CountriesService);
   private readonly route = inject(ActivatedRoute);
 
   country_name = signal<string>('');
@@ -41,7 +41,7 @@ export class CountryLanguagesComponent implements OnInit, OnChanges {
   }
 
   private loadLanguages(countryId: number): void {
-    this.countryLanguagesService.getLanguages(countryId).subscribe({
+    this.countriesService.getLanguages(countryId).subscribe({
       next: (response) => {
         this.country_name.set(response.country_name);
         this.languages.set(response.spoken_languages);
