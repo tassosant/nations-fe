@@ -1,1 +1,5 @@
-<p>pagination works!</p>
+<nav class="pagination" aria-label="Pagination">
+  <button type="button" (click)="previous()" [disabled]="!hasPrevious">Previous</button>
+  <span>Page {{ displayPage }} of {{ totalPages }} ({{ totalElements }} rows)</span>
+  <button type="button" (click)="next()" [disabled]="!hasNext">Next</button>
+</nav>

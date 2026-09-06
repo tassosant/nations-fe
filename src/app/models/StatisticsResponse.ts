@@ -1,5 +1,4 @@
 import {Statistics} from './Statistics';
+import {PageResponse} from './PageResponse';
 
-export interface StatisticsResponse {
-  statistics:Statistics[];
-}
+export type StatisticsResponse = PageResponse<Statistics>;
