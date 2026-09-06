@@ -18,6 +18,9 @@ export class StatisticsService {
   }
 
   getStatistics(request: StatisticsRequest = {page: 1, size: 10}): Observable<StatisticsResponse> {
-    return this.http.post<StatisticsResponse>(this.statisticsUrl, request);
+    const {page, size, ...body} = request;
+    const url = `${this.statisticsUrl}?page=${page}&size=${size}`;
+
+    return this.http.post<StatisticsResponse>(url, body);
   }
 }

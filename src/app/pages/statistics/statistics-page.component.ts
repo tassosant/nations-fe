@@ -7,6 +7,7 @@ import {StatisticsRequest} from '../../models/StatisticsRequest';
 import {Pagination} from '../../components/pagination/pagination';
 import {PageRequest} from '../../models/PageRequest';
 import {PageInfo} from '../../models/PageInfo';
+import {Router} from '@angular/router';
 
 @Component({
   imports: [
@@ -31,7 +32,10 @@ export class StatisticsPageComponent implements OnInit {
     totalPages: 0,
   });
 
-  constructor(private readonly statisticsService: StatisticsService) {
+  constructor(
+    private readonly statisticsService: StatisticsService,
+    private readonly router: Router,
+  ) {
   }
 
   ngOnInit(): void {
@@ -67,6 +71,13 @@ export class StatisticsPageComponent implements OnInit {
   }
 
   private loadStatistics(pageRequest: PageRequest): void {
+    this.router.navigate(['/statistics'], {
+      queryParams: {
+        page: pageRequest.page,
+        size: pageRequest.size,
+      },
+    });
+
     this.statisticsService.getStatistics(this.createRequest(pageRequest)).subscribe({
       next: (response) => {
         this.statistics.set(response.content);
