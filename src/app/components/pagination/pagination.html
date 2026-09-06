@@ -14,7 +14,7 @@
           }
         }
 
-        @if (pageInfo.page !== pageInfo.totalPages) {
+        @if (pageInfo.page < pageInfo.totalPages) {
           <div class="page-navigation__right" (click)="navigateToNextPage()">&raquo;</div>
         }
       </div>

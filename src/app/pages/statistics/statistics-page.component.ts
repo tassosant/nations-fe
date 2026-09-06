@@ -71,8 +71,8 @@ export class StatisticsPageComponent implements OnInit {
       next: (response) => {
         this.statistics.set(response.content);
         this.pageInfo.set({
-          page: response.page,
-          size: response.size,
+          page: pageRequest.page,
+          size: pageRequest.size,
           totalElements: response.totalElements,
           totalPages: response.totalPages,
         });

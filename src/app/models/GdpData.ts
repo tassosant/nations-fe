@@ -1,5 +1,5 @@
 export interface GdpData {
-  country_id:number;
+  countryId:number;
   name:string;
   countryCode3:string;
   year:number;
