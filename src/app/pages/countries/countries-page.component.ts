@@ -2,9 +2,11 @@ import {Component, OnInit, signal} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {Country} from '../../models/Country';
 import {CountriesService} from '../../services/countries.service';
+import {CountryLanguagesComponent} from '../../components/country-languages/country-languages.component';
 
 @Component({
   imports: [
+    CountryLanguagesComponent,
     RouterLink
   ],
   selector: 'app-countries',

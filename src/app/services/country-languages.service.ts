@@ -8,9 +8,9 @@ import {CountryLanguagesResponse} from '../models/CountryLanguagesResponse';
 })
 export class CountryLanguagesService {
   private readonly http = inject(HttpClient);
-  private readonly languagesUrl = '/api/languages';
+  private readonly countriesUrl = '/api/countries';
 
   getLanguages(countryId: number): Observable<CountryLanguagesResponse> {
-    return this.http.get<CountryLanguagesResponse>(`${this.languagesUrl}/${countryId}`);
+    return this.http.get<CountryLanguagesResponse>(`${this.countriesUrl}/${countryId}/languages`);
   }
 }
