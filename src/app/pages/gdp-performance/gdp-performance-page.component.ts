@@ -1,6 +1,6 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {GdpData} from '../../models/GdpData';
-import {GdpDataService} from '../../services/gdp-data.service';
+import {CountriesService} from '../../services/countries.service';
 
 @Component({
   imports: [],
@@ -12,11 +12,11 @@ export class GdpPerformancePageComponent implements OnInit {
 
   gdpPerformances = signal<GdpData[]>([]);
 
-  constructor(private readonly gdpDataService: GdpDataService) {
+  constructor(private readonly countriesService: CountriesService) {
   }
 
   ngOnInit(): void {
-    this.gdpDataService.getGdpData().subscribe({
+    this.countriesService.getGdpData().subscribe({
       next: (response) => {
         this.gdpPerformances.set(response.gdpData);
       },

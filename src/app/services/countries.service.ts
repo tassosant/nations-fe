@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CountriesResponse } from '../models/CountriesResponse';
 import {CountryLanguagesResponse} from '../models/CountryLanguagesResponse';
+import {GdpDataResponse} from '../models/GdpDataResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +18,9 @@ export class CountriesService {
 
   getLanguages(countryId: number): Observable<CountryLanguagesResponse> {
     return this.http.get<CountryLanguagesResponse>(`${this.countriesUrl}/${countryId}/languages`);
+  }
+
+  getGdpData(): Observable<GdpDataResponse> {
+    return this.http.get<GdpDataResponse>(`${this.countriesUrl}/gdp-data`);
   }
 }
