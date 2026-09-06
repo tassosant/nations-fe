@@ -10,7 +10,7 @@ import {GdpDataResponse} from '../models/GdpDataResponse';
 })
 export class CountriesService {
   private readonly http = inject(HttpClient);
-  private readonly countriesUrl = '/api/countries';
+  private readonly countriesUrl = '/api/v1/countries';
 
   getCountries(): Observable<CountriesResponse> {
     return this.http.get<CountriesResponse>(this.countriesUrl);

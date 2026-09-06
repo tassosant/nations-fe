@@ -12,7 +12,6 @@
         <th scope="col">Name</th>
         <th scope="col">Area</th>
         <th scope="col">Country Code</th>
-        <th scope="col">Languages</th>
       </tr>
     </thead>
     <tbody>
@@ -23,9 +22,6 @@
           </th>
           <td>{{ country.area }}</td>
           <td>{{ country.country_code2 }}</td>
-          <td>
-            <app-languages [country_id]="country.id"></app-languages>
-          </td>
         </tr>
       }
     </tbody>

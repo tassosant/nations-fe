@@ -12,8 +12,8 @@ import {Statistics} from '../models/Statistics';
 })
 export class StatisticsService {
   private readonly http = inject(HttpClient);
-  private readonly regionsUrl = '/api/regions';
-  private readonly statisticsUrl = '/api/statistics';
+  private readonly regionsUrl = '/api/v1/regions';
+  private readonly statisticsUrl = '/api/v1/statistics';
 
   getRegions(): Observable<RegionsResponse> {
     return this.http.get<RegionsResponse>(this.regionsUrl);
