@@ -1,8 +1,8 @@
 export interface Statistics {
   id:number;
-  continent_name:string;
-  region_name:string;
-  country_name:string;
+  continentName:string;
+  regionName:string;
+  countryName:string;
   population:string;
   year:number;
   gdp:string;

@@ -58,9 +58,9 @@
     <tbody>
       @for (statisticEl of statistics(); track statisticEl.id + '-' + statisticEl.year) {
         <tr>
-          <td>{{ statisticEl.continent_name }}</td>
-          <td>{{ statisticEl.region_name }}</td>
-          <th scope="row">{{ statisticEl.country_name }}</th>
+          <td>{{ statisticEl.continentName }}</td>
+          <td>{{ statisticEl.regionName }}</td>
+          <td>{{ statisticEl.countryName }}</td>
           <td>{{ statisticEl.year }}</td>
           <td>{{ statisticEl.population }}</td>
           <td>{{ statisticEl.gdp }}</td>
