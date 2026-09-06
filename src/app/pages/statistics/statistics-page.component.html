@@ -70,9 +70,7 @@
   </table>
 
   <app-pagination
-    [page]="page"
-    [totalElements]="totalElements()"
-    [totalPages]="totalPages()"
-    (pageChange)="changePage($event)"
+    [pageInfo]="pageInfo()"
+    (onPageRequest)="changePage($event)"
   ></app-pagination>
 </section>

@@ -1,7 +1,5 @@
-export interface PageResponse<T>{
+import {PageInfo} from './PageInfo';
+
+export interface PageResponse<T> extends PageInfo {
   content: T[];
-  page:number;
-  size:number;
-  totalElements:number;
-  totalPages:number;
 }

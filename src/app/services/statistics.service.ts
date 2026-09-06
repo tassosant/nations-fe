@@ -17,7 +17,7 @@ export class StatisticsService {
     return this.http.get<RegionsResponse>(this.regionsUrl);
   }
 
-  getStatistics(request: StatisticsRequest = {page: 0, size: 10}): Observable<StatisticsResponse> {
+  getStatistics(request: StatisticsRequest = {page: 1, size: 10}): Observable<StatisticsResponse> {
     return this.http.post<StatisticsResponse>(this.statisticsUrl, request);
   }
 }
