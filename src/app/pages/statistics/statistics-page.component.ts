@@ -5,6 +5,8 @@ import {FormsModule} from '@angular/forms';
 import {StatisticsService} from '../../services/statistics.service';
 import {StatisticsRequest} from '../../models/StatisticsRequest';
 import {Pagination} from '../../components/pagination/pagination';
+import {PageRequest} from '../../models/PageRequest';
+import {PageInfo} from '../../models/PageInfo';
 
 @Component({
   imports: [
@@ -22,10 +24,12 @@ export class StatisticsPageComponent implements OnInit {
   selectedRegionIds: number[] = [];
   yearFrom!: number | null;
   yearTo!: number | null;
-  page = 0;
-  pageSize = 10;
-  totalElements = signal(0);
-  totalPages = signal(0);
+  pageInfo = signal<PageInfo>({
+    page: 1,
+    size: 10,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
   constructor(private readonly statisticsService: StatisticsService) {
   }
@@ -44,27 +48,34 @@ export class StatisticsPageComponent implements OnInit {
   }
 
   searchStatistics(): void {
-    this.page = 0;
-    this.loadStatistics();
+    this.loadStatistics({
+      page: 1,
+      size: this.pageInfo().size,
+    });
   }
 
-  changePage(page: number): void {
-    if (page < 0 || page >= this.totalPages() || page === this.page) {
+  changePage(request: PageRequest): void {
+    if (
+      request.page < 1 ||
+      request.size < 1 ||
+      (request.page === this.pageInfo().page && request.size === this.pageInfo().size)
+    ) {
       return;
     }
 
-    this.page = page;
-    this.loadStatistics();
+    this.loadStatistics(request);
   }
 
-  private loadStatistics(): void {
-    this.statisticsService.getStatistics(this.createRequest()).subscribe({
+  private loadStatistics(pageRequest: PageRequest): void {
+    this.statisticsService.getStatistics(this.createRequest(pageRequest)).subscribe({
       next: (response) => {
         this.statistics.set(response.content);
-        this.page = response.page;
-        this.pageSize = response.size;
-        this.totalElements.set(response.totalElements);
-        this.totalPages.set(response.totalPages);
+        this.pageInfo.set({
+          page: response.page,
+          size: response.size,
+          totalElements: response.totalElements,
+          totalPages: response.totalPages,
+        });
       },
       error: (error) => {
         console.error('Failed to load statistics', error);
@@ -79,10 +90,10 @@ export class StatisticsPageComponent implements OnInit {
     this.searchStatistics();
   }
 
-  private createRequest(): StatisticsRequest {
+  private createRequest(pageRequest: PageRequest): StatisticsRequest {
     return {
-      page: this.page,
-      size: this.pageSize,
+      page: pageRequest.page,
+      size: pageRequest.size,
       regionIds: this.selectedRegionIds,
       yearFrom: this.yearFrom,
       yearTo: this.yearTo,
