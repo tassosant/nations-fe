@@ -1,25 +1,17 @@
 @if (pageInfo) {
   <div class="pages-container">
-    @if (visiblePages.length) {
+    @if (pages.length) {
       <div class="pages">
         @if (pageInfo.page > 1) {
           <div class="page-navigation__left" (click)="navigateToPreviousPage()">&laquo;</div>
         }
 
-        @if (showLeadingEllipsis) {
-          <div class="page" [class.active-page]="pageInfo.page === 1" (click)="navigateToPage(1)">1</div>
-          <div class="page-ellipsis">&hellip;</div>
-        }
-
-        @for (page of visiblePages; track page) {
-          <div class="page" [class.active-page]="pageInfo.page === page" (click)="navigateToPage(page)">{{ page }}</div>
-        }
-
-        @if (showTrailingEllipsis) {
-          <div class="page-ellipsis">&hellip;</div>
-          <div class="page" [class.active-page]="pageInfo.page === pageInfo.totalPages" (click)="navigateToPage(pageInfo.totalPages)">
-            {{ pageInfo.totalPages }}
-          </div>
+        @for (page of pages; track $index) {
+          @if (page === 'dots') {
+            <div class="page-ellipsis">&hellip;</div>
+          } @else {
+            <div class="page" [class.active-page]="pageInfo.page === page" (click)="navigateToPage(page)">{{ page }}</div>
+          }
         }
 
         @if (pageInfo.page !== pageInfo.totalPages) {
@@ -30,10 +22,12 @@
 
     <div class="page-size-container">
       <label for="page-size">Rows per page:</label>
-      <select name="page-size" id="page-size" [value]="pageRequest.size" (change)="onChange($event)">
+      <select name="page-size" id="page-size" [value]="pageInfo.size" (change)="onChange($event)">
         <option value="10">10</option>
         <option value="20">20</option>
         <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
       </select>
     </div>
   </div>

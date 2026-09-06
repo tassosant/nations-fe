@@ -1,6 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PageRequest} from '../../models/PageRequest';
 import {PageInfo} from '../../models/PageInfo';
+
+type PageItem = number | 'dots';
 
 @Component({
   imports: [],
@@ -8,35 +10,61 @@ import {PageInfo} from '../../models/PageInfo';
   styleUrl: './pagination.css',
   templateUrl: './pagination.html',
 })
-export class Pagination implements OnChanges {
+export class Pagination {
   @Input({required: true}) pageInfo!: PageInfo;
   @Output() onPageRequest = new EventEmitter<PageRequest>();
 
-  pageRequest: PageRequest = {page: 1, size: 10};
-  visiblePages: number[] = [];
-  showLeadingEllipsis = false;
-  showTrailingEllipsis = false;
+  get pages(): PageItem[] {
+    const totalPages = Math.max(0, this.pageInfo?.totalPages ?? 0);
+    const currentPage = this.pageInfo?.page ?? 1;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pageInfo']) {
-      this.syncPagerState();
+    if (totalPages <= 9) {
+      return this.buildRange(1, totalPages);
     }
+
+    const pages: PageItem[] = [1];
+    const middlePages = 7;
+    let start = currentPage - 3;
+    let end = currentPage + 3;
+
+    if (start < 2) {
+      end += 2 - start;
+      start = 2;
+    }
+
+    if (end > totalPages - 1) {
+      start -= end - (totalPages - 1);
+      end = totalPages - 1;
+    }
+
+    start = Math.max(2, start);
+    end = Math.min(totalPages - 1, end);
+
+    if (start === 3) {
+      pages.push(2);
+    } else if (start > 3) {
+      pages.push('dots');
+    }
+
+    pages.push(...this.buildRange(start, middlePages));
+
+    if (end === totalPages - 2) {
+      pages.push(totalPages - 1);
+    } else if (end < totalPages - 2) {
+      pages.push('dots');
+    }
+
+    pages.push(totalPages);
+
+    return pages;
   }
 
   navigateToNextPage(): void {
-    if (this.pageRequest.page >= this.pageInfo.totalPages) {
-      return;
-    }
-
-    this.navigateToPage(this.pageRequest.page + 1);
+    this.navigateToPage(this.pageInfo.page + 1);
   }
 
   navigateToPreviousPage(): void {
-    if (this.pageRequest.page <= 1) {
-      return;
-    }
-
-    this.navigateToPage(this.pageRequest.page - 1);
+    this.navigateToPage(this.pageInfo.page - 1);
   }
 
   navigateToPage(page: number): void {
@@ -44,54 +72,24 @@ export class Pagination implements OnChanges {
       return;
     }
 
-    this.pageRequest = {
-      ...this.pageRequest,
-      page,
-    };
-    this.emitPageRequest();
+    this.emitPageRequest(page, this.pageInfo.size);
   }
 
   onChange(event: Event): void {
     const size = Number.parseInt((event.target as HTMLSelectElement).value, 10);
 
-    if (Number.isNaN(size) || size === this.pageRequest.size) {
+    if (Number.isNaN(size) || size === this.pageInfo.size) {
       return;
     }
 
-    this.pageRequest = {
-      page: 1,
-      size,
-    };
-    this.emitPageRequest();
+    this.emitPageRequest(1, size);
   }
 
-  private syncPagerState(): void {
-    this.pageRequest = {
-      page: this.pageInfo.page,
-      size: this.pageInfo.size,
-    };
-
-    if (this.pageInfo.totalPages < 1) {
-      this.visiblePages = [];
-      this.showLeadingEllipsis = false;
-      this.showTrailingEllipsis = false;
-      return;
-    }
-
-    const visibleCount = Math.min(5, this.pageInfo.totalPages);
-    const start = Math.max(1, Math.min(this.pageInfo.page - 2, this.pageInfo.totalPages - visibleCount + 1));
-    const end = start + visibleCount - 1;
-
-    this.visiblePages = this.buildRange(start, end);
-    this.showLeadingEllipsis = start > 1;
-    this.showTrailingEllipsis = end < this.pageInfo.totalPages;
+  private emitPageRequest(page: number, size: number): void {
+    this.onPageRequest.emit({page, size});
   }
 
-  private buildRange(start: number, end: number): number[] {
-    return Array.from({length: end - start + 1}, (_, index) => start + index);
-  }
-
-  private emitPageRequest(): void {
-    this.onPageRequest.emit({...this.pageRequest});
+  private buildRange(start: number, count: number): number[] {
+    return Array.from({length: count}, (_, index) => start + index);
   }
 }
