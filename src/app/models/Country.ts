@@ -1,6 +1,6 @@
 export interface Country{
   id:number;
   name:string;
-  area:number;
+  area:string;
   country_code2:string;
 }
