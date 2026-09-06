@@ -32,8 +32,8 @@ export class CountryLanguagesComponent implements OnInit {
   private loadLanguages(countryId: number): void {
     this.countriesService.getLanguages(countryId).subscribe({
       next: (response) => {
-        this.country_name.set(response.country_name);
-        this.languages.set(response.spoken_languages);
+        this.country_name.set(response.countryName);
+        this.languages.set(response.spokenLanguages);
       },
       error: (error) => {
         console.error('Failed to load country languages', error);
